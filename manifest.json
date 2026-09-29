@@ -1,0 +1,56 @@
+{
+  "id": "return-home",
+  "name": "Return to Home",
+  "version": "1.0.0",
+  "description": "Invisible helper: after a few minutes with nobody touching the wall, go back to the Home screen.",
+  "author": "Tanya",
+  "license": "MIT",
+  "minAppVersion": "1.7.1",
+  "moduleType": "return-home",
+  "category": "Utility",
+  "icon": "House",
+  "defaultConfig": {
+    "minutes": 10,
+    "screenIndex": 0
+  },
+  "defaultSize": {
+    "w": 60,
+    "h": 30
+  },
+  "defaultStyle": {
+    "fontSize": 12,
+    "padding": 0,
+    "borderRadius": 0,
+    "backgroundColor": "transparent",
+    "opacity": 1
+  },
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "minutes": {
+        "type": "number",
+        "title": "Go back after (minutes untouched)",
+        "minimum": 1,
+        "maximum": 60,
+        "ui:widget": "slider",
+        "ui:step": 1,
+        "ui:group": "Content"
+      },
+      "screenIndex": {
+        "type": "number",
+        "title": "Go to screen number (0 = first)",
+        "minimum": 0,
+        "maximum": 20,
+        "ui:widget": "slider",
+        "ui:step": 1,
+        "ui:group": "Content"
+      }
+    }
+  },
+  "exports": {
+    "component": "default"
+  },
+  "dataRequirements": [],
+  "prefetchUrl": null,
+  "permissions": []
+}
