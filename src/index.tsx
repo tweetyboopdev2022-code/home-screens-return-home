@@ -26,16 +26,21 @@ export default function ReturnHome({ config, isEditing }: PluginComponentProps &
         else arm();
       }, minutes * 60000);
     };
+    if (config.mode === 'immediate') {
+      // Lock mode (shown only while e.g. guest mode is on): bounce straight back to the target screen.
+      const id = window.setInterval(() => { if (onScreen()) (window as any).__HS_SDK__?.emit?.({ type: 'navigate', direction: 'screen', screenIndex: target }); }, 700);
+      return () => clearInterval(id);
+    }
     arm();
     ACTIVITY.forEach((e) => window.addEventListener(e, arm, { passive: true }));
     return () => { clearTimeout(timer); ACTIVITY.forEach((e) => window.removeEventListener(e, arm)); };
-  }, [minutes, target, isEditing]);
+  }, [minutes, target, isEditing, config.mode]);
 
   const editor = typeof location !== 'undefined' && /\/editor/.test(location.pathname);
   return (
     <div ref={ref} style={{ width: '100%', height: '100%', pointerEvents: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
       fontSize: 11, color: editor ? 'rgba(160,160,160,.8)' : 'transparent', border: editor ? '1px dashed rgba(160,160,160,.5)' : 'none', borderRadius: 6, boxSizing: 'border-box' }}>
-      {editor ? `⌂ ${minutes}m` : null}
+      {editor ? (config.mode === 'immediate' ? `🔒 → ${target}` : `⌂ ${minutes}m`) : null}
     </div>
   );
 }

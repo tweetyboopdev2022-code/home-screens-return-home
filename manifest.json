@@ -1,8 +1,8 @@
 {
   "id": "return-home",
   "name": "Return to Home",
-  "version": "1.0.0",
-  "description": "Invisible helper: after a few minutes with nobody touching the wall, go back to the Home screen.",
+  "version": "1.1.0",
+  "description": "Invisible helper: after a few minutes with nobody touching the wall, go back to the Home screen \u2014 or, in lock mode, keep sending the wall back to one screen (e.g. Guests while guest mode is on).",
   "author": "Tanya",
   "license": "MIT",
   "minAppVersion": "1.7.1",
@@ -11,7 +11,8 @@
   "icon": "House",
   "defaultConfig": {
     "minutes": 10,
-    "screenIndex": 0
+    "screenIndex": 0,
+    "mode": "idle"
   },
   "defaultSize": {
     "w": 60,
@@ -27,6 +28,20 @@
   "configSchema": {
     "type": "object",
     "properties": {
+      "mode": {
+        "type": "string",
+        "title": "Mode",
+        "enum": [
+          "idle",
+          "immediate"
+        ],
+        "enumLabels": [
+          "Go back after idle minutes",
+          "Lock: go back right away (use with a visibility rule)"
+        ],
+        "ui:widget": "select",
+        "ui:group": "Content"
+      },
       "minutes": {
         "type": "number",
         "title": "Go back after (minutes untouched)",
