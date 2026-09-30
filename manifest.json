@@ -1,8 +1,8 @@
 {
   "id": "return-home",
   "name": "Return to Home",
-  "version": "1.1.0",
-  "description": "Invisible helper: after a few minutes with nobody touching the wall, go back to the Home screen \u2014 or, in lock mode, keep sending the wall back to one screen (e.g. Guests while guest mode is on).",
+  "version": "1.2.0",
+  "description": "Invisible helper: after a few minutes untouched, go back to Home \u2014 or in lock mode, keep guests on one screen (touching the wall bounces back) while a resident changing screens from their phone ends guest mode.",
   "author": "Tanya",
   "license": "MIT",
   "minAppVersion": "1.7.1",
@@ -12,7 +12,9 @@
   "defaultConfig": {
     "minutes": 10,
     "screenIndex": 0,
-    "mode": "idle"
+    "mode": "idle",
+    "screenName": "",
+    "releaseEntity": "input_boolean.guest_mode"
   },
   "defaultSize": {
     "w": 60,
@@ -59,6 +61,20 @@
         "ui:widget": "slider",
         "ui:step": 1,
         "ui:group": "Content"
+      },
+      "screenName": {
+        "type": "string",
+        "title": "Go to screen (name)",
+        "ui:widget": "text",
+        "ui:group": "Content",
+        "description": "e.g. Guests. Overrides the number below."
+      },
+      "releaseEntity": {
+        "type": "string",
+        "title": "Lock: Home Assistant switch to turn off",
+        "ui:widget": "text",
+        "ui:group": "Content",
+        "description": "Turned off when someone leaves the locked screen from their phone."
       }
     }
   },
@@ -67,5 +83,7 @@
   },
   "dataRequirements": [],
   "prefetchUrl": null,
-  "permissions": []
+  "permissions": [
+    "events"
+  ]
 }
